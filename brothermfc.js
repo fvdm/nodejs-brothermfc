@@ -15,6 +15,33 @@ var app = {
   general:{}
 }
 
+app.general.status = function( cb ) {
+  talk( {method: 'GET', path: '/general/status.html'}, function( err, res ) {
+    if( err ) { return cb(err) }
+    var result = {model: null, status: null, message: null, ink:{}}
+    
+    res.data.replace(/<div id="modelName"><h1>([^<]+)<\/h1>/, function(s,t) {
+      result.model = t
+    })
+    
+    res.data.replace(/<div id="moni_data"><span class="moni ([^\"]+)">([^<]+)<\/span><\/div>/, function(s,t,m) {
+      result.status = t
+      result.message = m
+    })
+    
+    res.data.replace(/<img src="\.\.\/common\/images\/(\w+)\.gif" alt="([^\"]+)" class="tonerremain" height="(\d+)px"/g, function(s,c,s,p) {
+      var percent = Math.round( p * 1.7857142857 )
+      result.ink[c] = percent
+    })
+    
+    res.data.replace(/<li class="(contact|location)">[^<]+<span class="spacer">:<\/span>([^<]+)<\/li>/g, function(s,t,v) {
+      result[t] = v
+    })
+    
+    cb( null, result )
+  })
+}
+
 // ! Communication
 function talk( props, callback ) {
   // ! prevent multiple callbacks
