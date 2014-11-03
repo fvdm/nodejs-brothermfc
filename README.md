@@ -56,6 +56,30 @@ brother.general.status( callback )
 ```
 
 
+general.information ( callback )
+-------------------
+
+Get information specific to the device, i.e. IP-address and serialnumber.
+
+```js
+brother.general.information( callback )
+```
+
+
+#### Output
+
+```js
+{ node_name: 'BRA123BC456DE78',
+  model_name: 'Brother MFC-J4710DW',
+  location: 'Here',
+  contact: 'Franklin',
+  ip_address: '192.168.1.158',
+  serial_no: 'A12345B678',
+  firmware_version: 'H',
+  page_counter: 26 }
+```
+
+
 License
 -------
 
