@@ -22,18 +22,6 @@ brother.general.status( function( err, data ) {
 ```
 
 
-#### Output
-
-```js
-{ model: 'MFC-J4710DW',
-  status: 'moniOk',
-  message: 'Gereed',
-  ink: { magenta: 100, cyan: 100, yellow: 100, black: 91 },
-  contact: 'Franklin',
-  location: 'Here' }
-```
-
-
 general.status ( callback )
 --------------
 
