@@ -68,6 +68,42 @@ app.general.information = function( cb ) {
   })
 }
 
+app.general.sleep = function( set, cb ) {
+  if( ! cb ) {
+    talk({method:'GET', path:'/general/sleep.html'}, function( err, res ) {
+      if( err ) { return cb(err) }
+      var result = {options:[]}
+      var value = null
+      
+      res.data.replace(/<select id="B15" name="B15" >(.+)<\/select>/, function(s,sel) {
+        sel.replace(/<option value="(\d+)"( selected="selected")?>(\d+)&#32;Mins<\/option>/g, function(s,a,b,c) {
+          result.options.push( {key: a, val: c *1} )
+          if( b ) {
+            result.value = {key: a, val: c *1}
+          }
+        })
+      })
+      
+      set( null, result )
+    })
+  } else {
+    var form = {
+      pageid: 5,
+      postif_registration_reject: 1,
+      B15: set
+    }
+    
+    talk({method:'POST', path:'/general/sleep.html', query:form}, function( err, res ) {
+      if( err ) { return cb(err) }
+      if( !!~res.data.indexOf('<div class="postSuccess">') ) {
+        cb( null, true )
+      } else {
+        cb( new Error('post failed') )
+      }
+    })
+  }
+}
+
 // ! Communication
 function talk( props, callback ) {
   // ! prevent multiple callbacks
