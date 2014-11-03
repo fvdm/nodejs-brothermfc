@@ -34,6 +34,28 @@ brother.status( function( err, data ) {
 ```
 
 
+general.status ( callback )
+--------------
+
+Get basic status details, like display text and ink levels.
+
+```js
+brother.general.status( callback )
+```
+
+
+#### Output
+
+```js
+{ model: 'MFC-J4710DW',
+  status: 'moniOk',
+  message: 'Gereed',
+  ink: { magenta: 100, cyan: 100, yellow: 100, black: 91 },
+  contact: 'Franklin',
+  location: 'Here' }
+```
+
+
 License
 -------
 
