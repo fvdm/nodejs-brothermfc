@@ -7,6 +7,8 @@ Access Brother MFC web UI details with node.js
 Installation
 ------------
 
+[![Build Status](https://travis-ci.org/fvdm/nodejs-brothermfc.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-brothermfc)
+
 `npm install git+https://github.com/fvdm/nodejs-brothermfc`
 
 
