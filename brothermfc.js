@@ -42,6 +42,32 @@ app.general.status = function( cb ) {
   })
 }
 
+app.general.information = function( cb ) {
+  talk( {method:'GET', path:'/etc/mnt_info.csv'}, function( err, res ) {
+    if( err ) { return cb(err) }
+    
+    var data = res.data.replace(/\""{0}/g, '')
+    data = data.split('\n')
+    
+    var one = data[0].split(',')
+    var two = data[1].split(',')
+    var result = {}
+    
+    for( var i=0; i < one.length; i++ ) {
+      var val = two[i].trim()
+      var key = one[i].trim().replace(/(.+)/, function(s,t) {
+        return t.toLowerCase().replace(' ', '_').replace('.', '')
+      })
+    
+      if( key != '' && val != '' ) {
+        result[ key ] = val.match(/^\d+$/) ? val *1 : val
+      }
+    }
+    
+    cb( null, result )
+  })
+}
+
 // ! Communication
 function talk( props, callback ) {
   // ! prevent multiple callbacks
