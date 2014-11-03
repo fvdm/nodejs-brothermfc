@@ -80,6 +80,57 @@ brother.general.information( callback )
 ```
 
 
+general.sleep ( [preset], callback )
+-------------
+
+Get or change the device's sleep timeout.
+
+   preset   optional   Preset number corresponding to minutes, see example.
+
+
+### Get
+
+```js
+brother.general.sleep( callback )
+```
+
+
+#### Output
+
+```js
+{
+  presets: [
+    { key: '1', minutes: 2 },
+    { key: '2', minutes: 3 },
+    { key: '3', minutes: 5 },
+    { key: '4', minutes: 10 },
+    { key: '5', minutes: 30 },
+    { key: '6', minutes: 60 }
+  ],
+  value: {
+    key: '4', minutes: 10
+  }
+}
+```
+
+The `presets` property are the predefined minutes you can choose from.
+The `value` is the current setting.
+
+
+### Change
+
+```js
+// set to key '5' = 30 minutes
+brother.general.sleep( 5, callback )
+```
+
+
+#### Output
+
+* OK: data is `true`
+* Fail: err is `Error: post failed`
+
+
 License
 -------
 
