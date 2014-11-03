@@ -39,6 +39,10 @@ general.status ( callback )
 
 Get basic status details, like display text and ink levels.
 
+param    | type     | required | description
+-------- | -------- | -------- | -----------
+callback | function | required | see Usage.
+
 ```js
 brother.general.status( callback )
 ```
@@ -60,6 +64,10 @@ general.information ( callback )
 -------------------
 
 Get information specific to the device, i.e. IP-address and serialnumber.
+
+param    | type     | required | description
+-------- | -------- | -------- | -----------
+callback | function | required | see Usage.
 
 ```js
 brother.general.information( callback )
@@ -85,7 +93,10 @@ general.sleep ( [preset], callback )
 
 Get or change the device's sleep timeout.
 
-   preset   optional   Preset number corresponding to minutes, see example.
+param    | type     | required | description
+-------- | -------- | -------- | -----------
+preset   | number   | optional | Preset number corresponding to minutes.
+callback | function | required | see Usage.
 
 
 ### Get
