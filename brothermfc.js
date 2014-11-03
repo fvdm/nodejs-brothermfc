@@ -72,7 +72,7 @@ app.general.sleep = function( set, cb ) {
   if( ! cb ) {
     talk({method:'GET', path:'/general/sleep.html'}, function( err, res ) {
       if( err ) { return cb(err) }
-      var result = {options:[]}
+      var result = {presets:[]}
       var value = null
       
       res.data.replace(/<select id="B15" name="B15" >(.+)<\/select>/, function(s,sel) {
