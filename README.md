@@ -16,7 +16,7 @@ Usage
 ```js
 var brother = require('brothermfc')({hostname: 'myprinter.lan'})
 
-brother.status( function( err, data ) {
+brother.general.status( function( err, data ) {
   console.log( err || data )
 })
 ```
