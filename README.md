@@ -21,7 +21,8 @@ brother.status( function( err, data ) {
 })
 ```
 
-### Output
+
+#### Output
 
 ```js
 { model: 'MFC-J4710DW',
