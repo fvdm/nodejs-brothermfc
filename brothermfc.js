@@ -77,9 +77,9 @@ app.general.sleep = function( set, cb ) {
       
       res.data.replace(/<select id="B15" name="B15" >(.+)<\/select>/, function(s,sel) {
         sel.replace(/<option value="(\d+)"( selected="selected")?>(\d+)&#32;Mins<\/option>/g, function(s,a,b,c) {
-          result.options.push( {key: a, val: c *1} )
+          result.presets.push( {key: a, minutes: c *1} )
           if( b ) {
-            result.value = {key: a, val: c *1}
+            result.value = {key: a, minutes: c *1}
           }
         })
       })
