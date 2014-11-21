@@ -7,6 +7,8 @@ Source:       https://github.com/fvdm/nodejs-brothermfc
 License:      Unlicense / Public Domain (see LICENSE file)
 */
 
+var querystring = require('querystring')
+
 var app = {
   settings: {
     hostname: null,
@@ -116,7 +118,7 @@ function talk( props, callback ) {
   }
   
   // ! build request
-  var query = require('querystring').stringify( props.query )
+  var query = querystring.stringify( props.query )
   var body = props.body || null
   
   var options = {
