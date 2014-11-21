@@ -21,7 +21,7 @@
   "engines": {
     "node":                "*"
   },
-  "keywords":              ["brother", "mfc", "printer", "webui", "unlicense"],
+  "keywords":              ["brother", "mfc", "printer", "unlicense"],
   "license": {
     "type":                "Public Domain",
     "url":                 "https://github.com/fvdm/nodejs-brothermfc/raw/master/UNLICENSE"
