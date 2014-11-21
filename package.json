@@ -15,7 +15,9 @@
     "url":                 "https://github.com/fvdm/nodejs-brothermfc/issues"
   },
   "main":                  "brothermfc.js",
-  "dependencies":          {},
+  "dependencies": {
+    "ipp":                 "0.x"
+  },
   "devDependencies":       {},
   "optionalDependencies":  {},
   "engines": {
