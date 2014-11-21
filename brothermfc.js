@@ -7,14 +7,17 @@ Source:       https://github.com/fvdm/nodejs-brothermfc
 License:      Unlicense / Public Domain (see LICENSE file)
 */
 
+var ipp = require('ipp')
 var querystring = require('querystring')
 
 var app = {
   settings: {
     hostname: null,
-    port: 80
+    port: 80,
+    ippPort: 631
   },
-  general:{}
+  general:{},
+  ipp: {}
 }
 
 app.general.status = function( cb ) {
@@ -105,6 +108,53 @@ app.general.sleep = function( set, cb ) {
     })
   }
 }
+
+
+// ! .current
+app.current = function( callback ) {
+  var printer = ipp.Printer('http://'+ app.settings.hostname +':'+ app.settings.ippPort +'/ipp/printer')
+  var msg = {
+    "operation-attributes-tag": {
+      "requested-attributes": [
+        "queued-job-count",
+        "marker-names",
+        "marker-levels",
+        "printer-state",
+        "printer-state-reasons",
+        "printer-up-time"
+      ]
+    }
+  }
+
+  printer.execute("Get-Printer-Attributes", msg, function( err, data ) {
+    if( err ) {
+      var error = new Error('ipp error')
+      error.error = err
+      return callback( err )
+    }
+    
+    data = data['printer-attributes-tag'] || {}
+    var result = {}
+    
+    result.state = data['printer-state'] || null
+    result.stateReasons = data['printer-state-reasons'] || null
+    result.jobs = data['queued-job-count'] || 0
+    result.uptime = data['printer-up-time'] || 0
+    result.uptimeDate = new Date( Date.now() - (result.uptime *1000) )
+    
+    result.ink = {}
+    
+    if( data['marker-names'] instanceof Array && data['marker-levels'] instanceof Array ) {
+      for( var i = 0; i < data['marker-names'].length; i++ ) {
+        var name = data['marker-names'][i].toLowerCase().replace(/.*\u001e(\w+) .*/, '$1')
+        result.ink[ name ] = data['marker-levels'][ i ]
+      }
+    }
+    
+    callback( null, result )
+  })
+}
+
 
 // ! Communication
 function talk( props, callback ) {
