@@ -18,10 +18,53 @@ Usage
 ```js
 var brother = require('brothermfc')({hostname: 'myprinter.lan'})
 
-brother.general.status( function( err, data ) {
+brother.current( function( err, data ) {
   console.log( err || data )
 })
 ```
+
+
+current ( callback )
+-------
+
+Get current information, like display text and ink levels, directly
+from the IPP interface. This is the most accurate information compared
+to the `general.status` method which is a calculation.
+
+**Hint:** this method may also work with other models and brands.
+
+
+param    | type     | required | description
+-------- | -------- | -------- | -----------
+callback | function | yes      | see Usage.
+
+
+#### Example
+
+```js
+brother.current( callback )
+```
+
+#### Output
+
+```js
+{ state: 'idle',
+  stateReasons: 'none',
+  jobs: 0,
+  uptime: 613845,
+  uptimeDate: Tue Nov 18 2014 03:47:22 GMT+0100 (CET),
+  ink: { magenta: 100, cyan: 100, yellow: 98, black: 86 } }
+```
+
+
+property     | description
+------------ | --------------------------------------
+state        | short status message
+stateReasons | more descriptive status message
+jobs         | print tasks running and queued
+uptime       | seconds since last boot
+uptimeDate   | `Date` object from `uptime`
+ink          | inklevels in %, colors depend in model
 
 
 general.status ( callback )
