@@ -72,9 +72,15 @@ general.status ( callback )
 
 Get basic status details, like display text and ink levels.
 
+**Note:** `ink` levels are less accurate then the `.current` method.
+
+
 param    | type     | required | description
 -------- | -------- | -------- | -----------
 callback | function | required | see Usage.
+
+
+#### Example
 
 ```js
 brother.general.status( callback )
