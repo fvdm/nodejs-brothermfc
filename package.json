@@ -1,8 +1,8 @@
 {
   "author": {
-    "name":               "Franklin van de Meent",
-    "email":              "fr@nkl.in",
-    "url":                "https://frankl.in"
+    "name":                "Franklin van de Meent",
+    "email":               "fr@nkl.in",
+    "url":                 "https://frankl.in"
   },
   "name":                  "brothermfc",
   "description":           "Access Brother MFC web UI details with node.js",
