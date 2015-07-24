@@ -24,8 +24,5 @@
     "node":                ">=0.8.0"
   },
   "keywords":              ["brother", "mfc", "printer", "unlicense"],
-  "license": {
-    "type":                "Public Domain",
-    "url":                 "https://github.com/fvdm/nodejs-brothermfc/raw/master/UNLICENSE"
-  }
+  "license":               "Unlicense"
 }
