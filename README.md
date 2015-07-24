@@ -3,25 +3,27 @@ brothermfc
 
 Access Brother MFC web UI details with node.js
 
+[![Build Status](https://travis-ci.org/fvdm/nodejs-brothermfc.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-brothermfc)
+
+
+Example
+-------
+
+```js
+var brother = require ('brothermfc') ({ hostname: 'myprinter.lan' });
+
+brother.current (function (err, data) {
+  console.log (err || data);
+});
+```
+
 
 Installation
 ------------
 
-[![Build Status](https://travis-ci.org/fvdm/nodejs-brothermfc.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-brothermfc)
+Normal: `npm install brothermfc`
 
-`npm install git+https://github.com/fvdm/nodejs-brothermfc`
-
-
-Usage
------
-
-```js
-var brother = require('brothermfc')({hostname: 'myprinter.lan'})
-
-brother.current( function( err, data ) {
-  console.log( err || data )
-})
-```
+Development: `npm install fvdm/nodejs-brothermfc`
 
 
 current ( callback )
@@ -35,14 +37,14 @@ to the `general.status` method which is a calculation.
 
 
 param    | type     | required | description
--------- | -------- | -------- | -----------
+:--------|:---------|:---------|:-----------
 callback | function | yes      | see Usage.
 
 
 #### Example
 
 ```js
-brother.current( callback )
+brother.current (callback);
 ```
 
 #### Output
@@ -58,7 +60,7 @@ brother.current( callback )
 
 
 property     | description
------------- | --------------------------------------
+:------------|:--------------------------------------
 state        | short status message
 stateReasons | more descriptive status message
 jobs         | print tasks running and queued
@@ -76,14 +78,14 @@ Get basic status details, like display text and ink levels.
 
 
 param    | type     | required | description
--------- | -------- | -------- | -----------
+:--------|:---------|:---------|:-----------
 callback | function | required | see Usage.
 
 
 #### Example
 
 ```js
-brother.general.status( callback )
+brother.general.status (callback);
 ```
 
 
@@ -105,11 +107,11 @@ general.information ( callback )
 Get information specific to the device, i.e. IP-address and serialnumber.
 
 param    | type     | required | description
--------- | -------- | -------- | -----------
+:--------|:---------|:---------|:-----------
 callback | function | required | see Usage.
 
 ```js
-brother.general.information( callback )
+brother.general.information (callback);
 ```
 
 
@@ -133,7 +135,7 @@ general.sleep ( [preset], callback )
 Get or change the device's sleep timeout.
 
 param    | type     | required | description
--------- | -------- | -------- | -----------
+:--------|:---------|:---------|:-----------
 preset   | number   | optional | Preset number corresponding to minutes.
 callback | function | required | see Usage.
 
@@ -141,7 +143,7 @@ callback | function | required | see Usage.
 ### Get
 
 ```js
-brother.general.sleep( callback )
+brother.general.sleep (callback);
 ```
 
 
@@ -171,7 +173,7 @@ The `value` is the current setting.
 
 ```js
 // set to key '5' = 30 minutes
-brother.general.sleep( 5, callback )
+brother.general.sleep (5, callback);
 ```
 
 
@@ -208,3 +210,11 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
+
+
+Author
+------
+
+Franklin van de Meent
+| [Website](https://frankl.in)
+| [Github](https://github.com/fvdm)
