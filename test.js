@@ -22,6 +22,13 @@ dotest.add ('Module', function () {
 });
 
 
+if (!config.hostname) {
+  dotest.run ();
+  dotest.log ('fail', 'MFC_HOSTNAME is required');
+  process.exit ();
+}
+
+
 dotest.add ('Method .current', function () {
   mfc.current (function (err, data) {
     dotest.test (err)
