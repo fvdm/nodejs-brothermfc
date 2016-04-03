@@ -8,8 +8,8 @@
   "description": "Access Brother MFC web UI details with node.js",
   "version": "0.2.2",
   "repository": {
-      "type": "git",
-      "url": "git://github.com/fvdm/nodejs-brothermfc.git"
+    "type": "git",
+    "url": "git://github.com/fvdm/nodejs-brothermfc.git"
   },
   "bugs": {
     "url": "https://github.com/fvdm/nodejs-brothermfc/issues"
@@ -19,10 +19,14 @@
     "ipp": "^1.0.0"
   },
   "devDependencies": {},
-  "optionalDependencies": {},
   "engines": {
     "node": ">=0.8.0"
   },
-  "keywords": ["brother", "mfc", "printer", "unlicense"],
+  "keywords": [
+    "brother",
+    "mfc",
+    "printer",
+    "unlicense"
+  ],
   "license": "Unlicense"
 }
