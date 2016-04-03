@@ -19,9 +19,15 @@
     "httpreq": "^0.4.16",
     "ipp": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotest": "^1.4.0",
+    "eslint": "^2.6.0"
+  },
   "engines": {
     "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "eslint . && node test.js"
   },
   "keywords": [
     "brother",
