@@ -39,6 +39,7 @@ dotest.add ('Method .current', function () {
       .isNumber ('fail', 'data.uptime', data && data.uptime)
       .isDate ('fail', 'data.uptimeDate', data && data.uptimeDate)
       .isObject ('fail', 'data.ink', data && data.ink)
+      .info (data && data.ink)
       .done ();
   });
 });
