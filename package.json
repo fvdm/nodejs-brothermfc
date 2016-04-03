@@ -16,7 +16,7 @@
   },
   "main": "brothermfc.js",
   "dependencies": {
-    "ipp": "0.x"
+    "ipp": "^1.0.0"
   },
   "devDependencies": {},
   "optionalDependencies": {},
