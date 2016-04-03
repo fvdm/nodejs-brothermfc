@@ -1,9 +1,12 @@
 var dotest = require ('dotest');
 var app = require ('./');
+var mfc;
 
-var mfc = app ({
+var config = {
   hostname: process.env.MFC_HOSTNAME || null
-});
+};
+
+mfc = app (config);
 
 
 dotest.add ('Module', function () {
