@@ -33,12 +33,12 @@ dotest.add ('Method .current', function () {
   mfc.current (function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
-      .isObject ('fail', 'data.ink', data && data.ink)
-      .isDate ('fail', 'data.uptimeDate', data && data.uptimeDate)
-      .isNumber ('fail', 'data.uptime', data && data.uptime)
-      .isNumber ('fail', 'data.jobs', data && data.jobs)
       .isString ('fail', 'data.state', data && data.state)
       .isString ('fail', 'data.stateReasons', data && data.stateReasons)
+      .isNumber ('fail', 'data.jobs', data && data.jobs)
+      .isNumber ('fail', 'data.uptime', data && data.uptime)
+      .isDate ('fail', 'data.uptimeDate', data && data.uptimeDate)
+      .isObject ('fail', 'data.ink', data && data.ink)
       .done ();
   });
 });
