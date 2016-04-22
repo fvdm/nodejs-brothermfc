@@ -72,7 +72,7 @@ function talk (props, callback) {
   options.url = props.protocol || config.protocol;
   options.url += '://';
   options.url += props.hostname || config.hostname;
-  options.url += '/';
+  options.url += ':';
   options.url += props.port || config.port;
   options.url += props.path;
 
