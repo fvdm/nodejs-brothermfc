@@ -9,15 +9,17 @@ var config = {
 mfc = app (config);
 
 
-dotest.add ('Module', function () {
-  dotest.test ()
+dotest.add ('Module', function (test) {
+  var general = mfc && mfc.general;
+
+  test ()
     .isFunction ('fail', 'exports', app)
     .isObject ('fail', 'interface', mfc)
     .isFunction ('fail', '.current', mfc && mfc.current)
     .isFunction ('fail', '.sleep', mfc && mfc.sleep)
-    .isObject ('fail', '.general', mfc && mfc.general)
-    .isFunction ('fail', '.general.status', mfc && mfc.general && mfc.general.status)
-    .isFunction ('fail', '.general.information', mfc && mfc.general && mfc.general.information)
+    .isObject ('fail', '.general', general)
+    .isFunction ('fail', '.general.status', general && general.status)
+    .isFunction ('fail', '.general.information', general && general.information)
     .done ();
 });
 
