@@ -84,4 +84,25 @@ dotest.add ('Method .current', function (test) {
 });
 
 
+dotest.add ('Method general.status', function (test) {
+  mfc.general.status (function (err, data) {
+    var i;
+
+    test (err)
+      .isObject ('fail', 'data', data)
+      .isString ('fail', 'data.model', data && data.model)
+      .isString ('fail', 'data.status', data && data.status)
+      .isString ('fail', 'data.message', data && data.message)
+      .isObject ('fail', 'data.ink', data && data.ink)
+      .isNotEmpty ('fail', 'data.ink', data && data.ink);
+
+    for (i in data && data.ink) {
+      test () .isNumber ('fail', 'data.ink.' + i, data.ink [i]);
+    }
+
+    test () .done ();
+  });
+});
+
+
 dotest.run ();
