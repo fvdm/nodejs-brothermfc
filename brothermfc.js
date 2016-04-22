@@ -235,7 +235,7 @@ function methodSleep (set, callback) {
         });
       });
 
-      set (null, result);
+      callback (null, result);
     });
 
     return;
