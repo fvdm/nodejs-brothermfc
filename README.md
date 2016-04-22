@@ -33,7 +33,7 @@ Get current information, like display text and ink levels, directly
 from the IPP interface. This is the most accurate information compared
 to the `general.status` method which is a calculation.
 
-**Hint:** this method may also work with other models and brands.
+**Note:** this method may also work with other models and brands.
 
 
 param    | type     | required | description
@@ -55,7 +55,13 @@ brother.current (callback);
   jobs: 0,
   uptime: 613845,
   uptimeDate: Tue Nov 18 2014 03:47:22 GMT+0100 (CET),
-  ink: { magenta: 100, cyan: 100, yellow: 98, black: 86 } }
+  ink: {
+    magenta: 100,
+    cyan: 100,
+    yellow: 98,
+    black: 86
+  }
+}
 ```
 
 
@@ -136,8 +142,8 @@ Get or change the device's sleep timeout.
 
 param    | type     | required | description
 :--------|:---------|:---------|:-----------
-preset   | number   | optional | Preset number corresponding to minutes.
-callback | function | required | see Usage.
+preset   | number   | optional | Preset number corresponding to minutes
+callback | function | required | see [Example](#example)
 
 
 ### Get
@@ -166,21 +172,21 @@ brother.general.sleep (callback);
 ```
 
 The `presets` property are the predefined minutes you can choose from.
-The `value` is the current setting.
+The `value` property is the current setting.
 
 
 ### Change
 
 ```js
-// set to key '5' = 30 minutes
+// set to key `5` = 30 minutes
 brother.general.sleep (5, callback);
 ```
 
 
 #### Output
 
-* OK: data is `true`
-* Fail: err is `Error: post failed`
+* OK: `data` is `true` (boolean)
+* Fail: `err` is `Error: POST failed` with `err.error`
 
 
 License
@@ -215,6 +221,4 @@ For more information, please refer to <http://unlicense.org>
 Author
 ------
 
-Franklin van de Meent
-| [Website](https://frankl.in)
-| [Github](https://github.com/fvdm)
+[Franklin van de Meent](https://frankl.in)
