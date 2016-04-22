@@ -56,4 +56,3 @@ dotest.add ('Method .current', function (test) {
 
 
 dotest.run ();
-
