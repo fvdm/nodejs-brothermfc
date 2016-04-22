@@ -105,4 +105,15 @@ dotest.add ('Method general.status', function (test) {
 });
 
 
+dotest.add ('Method general.information', function (test) {
+  mfc.general.information (function (err, data) {
+    test (err)
+      .isObject ('fail', 'data', data)
+      .isString ('fail', 'data.ip_address', data && data.ip_address)
+      .isNumber ('fail', 'data.page_counter', data && data.page_counter)
+      .done ();
+  });
+});
+
+
 dotest.run ();
