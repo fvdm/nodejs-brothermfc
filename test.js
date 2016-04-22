@@ -9,6 +9,19 @@ var config = {
 mfc = app (config);
 
 
+dotest.add ('Configuration', function (test) {
+  if (!config.hostname) {
+    test ()
+      .fail ('MFC_HOSTNAME not set')
+      .exit ();
+  } else {
+    test ()
+      .good ('MFC_HOSTNAME is set')
+      .done ();
+  }
+});
+
+
 dotest.add ('Module', function (test) {
   var general = mfc && mfc.general;
 
@@ -24,16 +37,11 @@ dotest.add ('Module', function (test) {
 });
 
 
-if (!config.hostname) {
-  dotest.run ();
-  dotest.log ('fail', 'MFC_HOSTNAME is required');
-  process.exit ();
-}
 
 
-dotest.add ('Method .current', function () {
+dotest.add ('Method .current', function (test) {
   mfc.current (function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isString ('fail', 'data.state', data && data.state)
       .isString ('fail', 'data.stateReasons', data && data.stateReasons)
