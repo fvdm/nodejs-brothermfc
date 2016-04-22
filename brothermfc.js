@@ -213,6 +213,8 @@ function methodSleep (set, callback) {
   };
 
   if (!callback) {
+    callback = set;
+
     talk ({ path: '/general/sleep.html' }, function (err, res) {
       if (err) {
         callback (err);
