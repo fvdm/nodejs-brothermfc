@@ -15,6 +15,7 @@ var config = {
   protocol: 'http',
   hostname: null,
   port: 80,
+  prefix: '',
   ippPort: 631
 };
 
@@ -76,7 +77,7 @@ function talk (props, callback) {
   options.url += props.hostname || config.hostname;
   options.url += ':';
   options.url += props.port || config.port;
-  options.url += props.path;
+  options.url += config.prefix + props.path;
 
   // custom request headers
   if (props.headers) {
@@ -342,6 +343,7 @@ function methodCurrent (callback) {
  * @param setup.hostname {string} - Printer hostname or IP
  * @param [setup.port = 80] {number} - Printer UI port
  * @param [setup.ippPort = 631] {number} - Printer IPP port
+ * @param [setup.prefix] {string} - Path prefix, for proxies
  * @param [setup.protocol = http] {string} - Printer UI protocol, `http` or `https`
  * @returns {object} - Methods
  */
