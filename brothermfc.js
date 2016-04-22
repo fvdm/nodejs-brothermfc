@@ -16,7 +16,16 @@ var config = {
   ippPort: 631
 };
 
-// Process response
+
+/**
+ * Process response
+ *
+ * @callback callback
+ * @param response {object} - httpreq response details
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
+
 function doResponse (response, callback) {
   var data = response && response.body || '';
   var error = null;
@@ -37,7 +46,21 @@ function doResponse (response, callback) {
   callback (null, res);
 }
 
-// Communication
+
+/**
+ * Communication
+ *
+ * @callback callback
+ * @param props {object} - Request properties
+ * @param props.path - Request path
+ * @param [props.method = GET] {string} - HTTP method
+ * @param [props.protocol = http] {string} - `https` or `http`
+ * @param [props.hostname = config.hostname] {string} - Printer hostname
+ * @param [props.port = 80] {number} - Printer web UI port
+ * @param [props.headers] {object} - Additional request headers
+ * @returns {void}
+ */
+
 function talk (props, callback) {
   var options = {
     method: props.method || 'GET',
@@ -67,6 +90,15 @@ function talk (props, callback) {
     doResponse (res, callback);
   });
 }
+
+
+/**
+ * Method: general.status
+ *
+ * @callback callback
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
 
 function methodGeneralStatus (callback) {
   talk ({ path: '/general/status.html' }, function (err, res) {
@@ -102,6 +134,15 @@ function methodGeneralStatus (callback) {
     callback (null, result);
   });
 }
+
+
+/**
+ * Method: general.information
+ *
+ * @callback callback
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
 
 function methodGeneralInformation (callback) {
   talk ({ path: '/etc/mnt_info.csv' }, function (err, res) {
@@ -140,10 +181,30 @@ function methodGeneralInformation (callback) {
   });
 }
 
+
+/**
+ * Method: sleep
+ *
+ * `set` values:
+ * 0 = 1 min
+ * 1 = 2 min
+ * 2 = 3 min
+ * 3 = 5 min
+ * 4 = 10 min
+ * 5 = 30 min
+ * 6 = 60 min
+ *
+ * @callback callback
+ * @param set {number} - 1-6, see above
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
+
 function methodSleep (set, callback) {
   var result = {
     presets: []
   };
+
   var form = {
     pageid: 5,
     postif_registration_reject: 1,
@@ -201,7 +262,15 @@ function methodSleep (set, callback) {
   );
 }
 
-// ! .current
+
+/**
+ * Method: current
+ *
+ * @callback callback
+ * @param callback {function} - `function (err, data) {}`
+ * @returns {void}
+ */
+
 function methodCurrent (callback) {
   var printer = ipp.Printer ('http://' + config.hostname + ':' + config.ippPort + '/ipp/printer');
   var msg = {
@@ -250,7 +319,18 @@ function methodCurrent (callback) {
   });
 }
 
-// ! module
+
+/**
+ * Module interface
+ *
+ * @param setup {object} - Configuration parameters
+ * @param setup.hostname {string} - Printer hostname or IP
+ * @param [setup.port = 80] {number} - Printer UI port
+ * @param [setup.ippPort = 631] {number} - Printer IPP port
+ * @param [setup.protocol = http] {string} - Printer UI protocol, `http` or `https`
+ * @returns {object} - Methods
+ */
+
 module.exports = function (setup) {
   var i;
 
