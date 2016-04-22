@@ -196,7 +196,7 @@ function methodGeneralInformation (callback) {
  * 6 = 60 min
  *
  * @callback callback
- * @param set {number} - 1-6, see above
+ * @param [set] {number} - 1-6, see above. Leave out to get current value.
  * @param callback {function} - `function (err, data) {}`
  * @returns {void}
  */
