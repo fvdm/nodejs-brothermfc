@@ -1,13 +1,14 @@
 var dotest = require ('dotest');
 var app = require ('./');
-var mfc;
 
 var config = {
   hostname: process.env.MFC_HOSTNAME || null,
   timeout: process.env.MFC_TIMEOUT || 5000
 };
 
-mfc = app (config);
+var cacheSleep = null;
+
+var mfc = app (config);
 
 
 dotest.add ('Configuration', function (test) {
@@ -43,12 +44,25 @@ dotest.add ('Method .sleep - get value', function (test) {
   mfc.sleep (function (err, data) {
     var value = data && data.value;
 
+    if (value && value.key) {
+      cacheSleep = value.key;
+    }
+
     test (err)
       .isObject ('fail', 'data', data)
       .isObject ('fail', 'data.presets', data && data.presets)
       .isObject ('fail', 'data.value', value)
       .isNumber ('fail', 'data.value.key', value && value.key)
       .isNumber ('fail', 'data.presets[1]', data && data.presets && data.presets[1])
+      .done ();
+  });
+});
+
+
+dotest.add ('Method .sleep - set value', function (test) {
+  mfc.sleep (cacheSleep, function (err, data) {
+    test (err)
+      .isExactly ('fail', 'data', data, true)
       .done ();
   });
 });
