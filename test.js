@@ -41,10 +41,13 @@ dotest.add ('Module', function (test) {
 
 dotest.add ('Method .sleep - get value', function (test) {
   mfc.sleep (function (err, data) {
+    var value = data && data.value;
+
     test (err)
       .isObject ('fail', 'data', data)
       .isObject ('fail', 'data.presets', data && data.presets)
-      .isObject ('fail', 'data.value', data && data.value)
+      .isObject ('fail', 'data.value', value)
+      .isNumber ('fail', 'data.value.key', value && value.key)
       .isNumber ('fail', 'data.presets[1]', data && data.presets && data.presets[1])
       .done ();
   });

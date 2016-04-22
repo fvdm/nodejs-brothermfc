@@ -225,11 +225,11 @@ function methodSleep (set, callback) {
 
       res.data.replace (/<select id="B15" name="B15" >(.+)<\/select>/, function (s, sel) {
         sel.replace (/<option value="(\d+)"( selected="selected")?>(\d+)&#32;Mins<\/option>/g, function (s2, a, b, c) {
-          result.presets [a] = parseInt (c, 10);
+          result.presets [parseInt (a, 10)] = parseInt (c, 10);
 
           if (b) {
             result.value = {
-              key: a,
+              key: parseInt (a, 10),
               minutes: parseInt (c, 10)
             };
           }
