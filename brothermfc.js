@@ -249,6 +249,8 @@ function methodSleep (set, callback) {
       query: form
     },
     function (err, res) {
+      var error = null;
+
       if (err) {
         callback (err);
         return;
@@ -259,7 +261,17 @@ function methodSleep (set, callback) {
         return;
       }
 
-      callback (new Error ('post failed'));
+      error = new Error ('Unknown error');
+      error.statusCode = res.code;
+      error.body = res.data;
+
+      res.data.replace (/<div class="postError">([^<]+)<\/div>/, function (str, message) {
+        error = new Error ('POST failed');
+        error.statusCode = res.code;
+        error.error = message.replace ('&#32;', ' ');
+      });
+
+      callback (error);
     }
   );
 }
