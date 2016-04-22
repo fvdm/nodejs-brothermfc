@@ -97,10 +97,12 @@ dotest.add ('Method general.status', function (test) {
       .isNotEmpty ('fail', 'data.ink', data && data.ink);
 
     for (i in data && data.ink) {
-      test () .isNumber ('fail', 'data.ink.' + i, data.ink [i]);
+      test ()
+        .isNumber ('fail', 'data.ink.' + i, data.ink [i]);
     }
 
-    test () .done ();
+    test ()
+      .done ();
   });
 });
 
