@@ -11,6 +11,7 @@ var ipp = require ('ipp');
 var httpreq = require ('httpreq');
 
 var config = {
+  timeout: 5000,
   protocol: 'http',
   hostname: null,
   port: 80,
@@ -66,6 +67,7 @@ function talk (props, callback) {
   var options = {
     method: props.method || 'GET',
     parameters: props.query || null,
+    timeout: config.timeout,
     headers: {}
   };
 

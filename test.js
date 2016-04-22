@@ -3,7 +3,8 @@ var app = require ('./');
 var mfc;
 
 var config = {
-  hostname: process.env.MFC_HOSTNAME || null
+  hostname: process.env.MFC_HOSTNAME || null,
+  timeout: process.env.MFC_TIMEOUT || 5000
 };
 
 mfc = app (config);
@@ -17,6 +18,7 @@ dotest.add ('Configuration', function (test) {
   } else {
     test ()
       .good ('MFC_HOSTNAME is set')
+      .info ('MFC_TIMEOUT:  ' + config.timeout)
       .done ();
   }
 });
