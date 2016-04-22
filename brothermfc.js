@@ -296,7 +296,8 @@ function methodCurrent (callback) {
     if (err) {
       error = new Error ('ipp error');
       error.error = err;
-      return callback (err);
+      callback (err);
+      return;
     }
 
     data = data ['printer-attributes-tag'] || {};
