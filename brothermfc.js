@@ -11,8 +11,9 @@ var ipp = require ('ipp');
 var httpreq = require ('httpreq');
 
 var config = {
+  protocol: 'http',
   hostname: null,
-  port: null,
+  port: 80,
   ippPort: 631
 };
 
@@ -68,11 +69,11 @@ function talk (props, callback) {
     headers: {}
   };
 
-  options.url = props.protocol || config.protocol || 'http';
+  options.url = props.protocol || config.protocol;
   options.url += '://';
   options.url += props.hostname || config.hostname;
   options.url += '/';
-  options.url += props.port || config.port || 80;
+  options.url += props.port || config.port;
   options.url += props.path;
 
   // custom request headers
