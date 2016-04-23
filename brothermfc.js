@@ -72,11 +72,13 @@ function talk (props, callback) {
     headers: {}
   };
 
+  var port = props.protocol === 'https' ? 443 : 80;
+
   options.url = props.protocol || config.protocol;
   options.url += '://';
   options.url += props.hostname || config.hostname;
   options.url += ':';
-  options.url += props.port || config.port;
+  options.url += props.port || config.port || port;
   options.url += config.prefix + props.path;
 
   // custom request headers
