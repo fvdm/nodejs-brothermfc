@@ -28,8 +28,9 @@ Normal: `npm install brothermfc`
 Development: `npm install fvdm/nodejs-brothermfc`
 
 
-current ( callback )
+current
 -------
+**( callback )**
 
 Get current information, like display text and ink levels, directly
 from the IPP interface. This is the most accurate information compared
@@ -77,8 +78,9 @@ uptimeDate   | `Date` object from `uptime`
 ink          | inklevels in %, colors depend in model
 
 
-general.status ( callback )
+general.status
 --------------
+**( callback )**
 
 Get basic status details, like display text and ink levels.
 
@@ -87,7 +89,7 @@ Get basic status details, like display text and ink levels.
 
 param    | type     | required | description
 :--------|:---------|:---------|:-----------
-callback | function | required | see Usage.
+callback | function | yes      | see Usage.
 
 
 #### Example
@@ -109,14 +111,15 @@ brother.general.status (callback);
 ```
 
 
-general.information ( callback )
+general.information
 -------------------
+**( callback )**
 
 Get information specific to the device, i.e. IP-address and serialnumber.
 
 param    | type     | required | description
 :--------|:---------|:---------|:-----------
-callback | function | required | see Usage.
+callback | function | yes      | see Usage.
 
 ```js
 brother.general.information (callback);
@@ -137,15 +140,16 @@ brother.general.information (callback);
 ```
 
 
-general.sleep ( [preset], callback )
+general.sleep
 -------------
+**( [preset], callback )**
 
 Get or change the device's sleep timeout.
 
 param    | type     | required | description
 :--------|:---------|:---------|:-----------
-preset   | number   | optional | Preset number corresponding to minutes
-callback | function | required | see [Example](#example)
+preset   | number   | no       | Preset number corresponding to minutes
+callback | function | yes      | see [Example](#example)
 
 
 ### Get
