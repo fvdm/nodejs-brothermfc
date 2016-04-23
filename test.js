@@ -5,7 +5,7 @@ var config = {
   protocol: process.env.MFC_PROTOCOL || 'http',
   hostname: process.env.MFC_HOSTNAME || null,
   port: process.env.MFC_PORT || 80,
-  prefix: process.env.MFC_PREFIX || null,
+  prefix: process.env.MFC_PREFIX || '',
   ippPort: process.env.MFC_IPPPORT || 631,
   timeout: process.env.MFC_TIMEOUT || 5000
 };
