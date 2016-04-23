@@ -15,20 +15,6 @@ var cacheSleep = null;
 var mfc = app (config);
 
 
-dotest.add ('Configuration', function (test) {
-  if (!config.hostname) {
-    test ()
-      .fail ('MFC_HOSTNAME not set')
-      .exit ();
-  } else {
-    test ()
-      .good ('MFC_HOSTNAME is set')
-      .info ('MFC_TIMEOUT:  ' + config.timeout)
-      .done ();
-  }
-});
-
-
 dotest.add ('Module', function (test) {
   var general = mfc && mfc.general;
 
@@ -41,6 +27,20 @@ dotest.add ('Module', function (test) {
     .isFunction ('fail', '.general.status', general && general.status)
     .isFunction ('fail', '.general.information', general && general.information)
     .done ();
+});
+
+
+dotest.add ('Configuration', function (test) {
+  if (!config.hostname) {
+    test ()
+      .warn ('MFC_HOSTNAME not set, skipping method tests')
+      .exit ();
+  } else {
+    test ()
+      .good ('MFC_HOSTNAME is set')
+      .info ('MFC_TIMEOUT:  ' + config.timeout)
+      .done ();
+  }
 });
 
 
