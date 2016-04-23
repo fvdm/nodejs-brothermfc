@@ -10,7 +10,9 @@ Example
 -------
 
 ```js
-var brother = require ('brothermfc') ({ hostname: 'myprinter.lan' });
+var brother = require ('brothermfc') ({
+  hostname: 'myprinter.lan'
+});
 
 brother.current (function (err, data) {
   console.log (err || data);
