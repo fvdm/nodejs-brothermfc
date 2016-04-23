@@ -28,6 +28,29 @@ Normal: `npm install brothermfc`
 Development: `npm install fvdm/nodejs-brothermfc`
 
 
+Configuration
+-------------
+
+param    | type   | required | default | description
+:--------|:-------|:---------|:--------|:------------------------------------------
+hostname | string | yes      |         | Printer hostname or IP
+port     | number | no       | 80      | Printer web UI port
+protocol | string | no       | http    | Printer web UI protocol, `http` or `https`
+prefix   | string | no       |         | Printer web UI prefix
+ippPort  | number | no       | 631     | Printer IPP service port
+timeout  | number | no       | 5000    | Web require time out in ms, 1000 = 1 sec
+
+
+#### Example
+
+```js
+var brother = require ('brothermfc') ({
+  hostname: 'printer.lan',
+  protocol: 'https'
+});
+```
+
+
 current
 -------
 **( callback )**
