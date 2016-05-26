@@ -3,6 +3,7 @@ brothermfc
 
 Access Brother MFC web UI details with node.js
 
+[![npm](https://img.shields.io/npm/v/brothermfc.svg?maxAge=3600)](https://github.com/fvdm/nodejs-brothermfc/blob/master/CHANGELOG.md)
 [![Build Status](https://travis-ci.org/fvdm/nodejs-brothermfc.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-brothermfc)
 [![Dependency Status](https://gemnasium.com/badges/github.com/fvdm/nodejs-brothermfc.svg)](https://gemnasium.com/github.com/fvdm/nodejs-brothermfc)
 
