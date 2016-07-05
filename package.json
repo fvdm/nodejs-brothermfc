@@ -27,7 +27,7 @@
     "eslint": "^2.8.0"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
     "test": "st=0; eslint . || st=1; node test.js || st=1; exit $st"
