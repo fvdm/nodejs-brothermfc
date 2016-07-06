@@ -30,20 +30,6 @@ dotest.add ('Module', function (test) {
 });
 
 
-dotest.add ('Configuration', function (test) {
-  if (!config.hostname) {
-    test ()
-      .warn ('MFC_HOSTNAME not set, skipping method tests')
-      .exit ();
-  } else {
-    test ()
-      .good ('MFC_HOSTNAME is set')
-      .info ('MFC_TIMEOUT:  ' + config.timeout)
-      .done ();
-  }
-});
-
-
 dotest.add ('Method .sleep - get value', function (test) {
   mfc.sleep (function (err, data) {
     var value = data && data.value;
