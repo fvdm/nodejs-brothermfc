@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "httpreq": "^0.4.16",
-    "ipp": "^1.0.0"
+    "ipp": "^1.1.0"
   },
   "devDependencies": {
     "dotest": "^1.9.1",
