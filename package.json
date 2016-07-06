@@ -16,12 +16,12 @@
   },
   "main": "brothermfc.js",
   "dependencies": {
-    "httpreq": "^0.4.16",
+    "httpreq": "^0.4.22",
     "ipp": "^1.0.0"
   },
   "devDependencies": {
-    "dotest": "^1.9.1",
-    "eslint": "^2.8.0"
+    "dotest": "^1.12.4",
+    "eslint": "^3.0.1"
   },
   "engines": {
     "node": ">=4.0.0"
