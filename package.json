@@ -17,7 +17,7 @@
   "main": "brothermfc.js",
   "dependencies": {
     "httpreq": "^0.4.22",
-    "ipp": "^1.0.0"
+    "ipp": "^1.1.0"
   },
   "devDependencies": {
     "dotest": "^1.13.0"
