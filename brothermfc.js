@@ -177,7 +177,7 @@ module.exports = class BrotherMFC {
           stateReasons: data['printer-state-reasons'],
           jobs: data['queued-job-count'],
           uptime: data['printer-up-time'],
-          uptimeDate: new Date (Date.now() - (result.uptime * 1000)),
+          uptimeDate: new Date (Date.now() - (data['printer-up-time'] * 1000)),
           ink: {},
         };
 
