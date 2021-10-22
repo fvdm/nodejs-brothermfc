@@ -52,72 +52,70 @@ module.exports = class BrotherMFC {
     method = 'GET',
   }) {
     const options = {
-      url: `${this._config.url.protocol}//${this._config.url.host}`
-        + this._config.url.pathname + path
-      ,
+      url: `${this._config.url.protocol}//${this._config.url.host}${this._config.url.pathname}${path}`,
       method,
       parameters,
       timeout: this._config.timeout,
       headers,
     };
-  
+
     return doRequest (options)
       .then (res => res.body)
     ;
   }
-  
-  
+
+
   /**
    * Method: generalStatus
    *
    * @returns {Promise<object>}
    */
-  
+
   async generalStatus () {
     const data = await this._talk ({ path: '/general/status.html' });
     const result = {
       ink: {},
     };
-  
-    res.data.replace (/<div id="modelName"><h1>([^<]+)<\/h1>/, function (s, t) {
+
+    data.replace (/<div id="modelName"><h1>([^<]+)<\/h1>/, function (s, t) {
       result.model = t;
     });
-  
-    res.data.replace (/<div id="moni_data"><span class="moni ([^\"]+)">([^<]+)<\/span><\/div>/, function (s, t, m) {
+
+    data.replace (/<div id="moni_data"><span class="moni ([^\"]+)">([^<]+)<\/span><\/div>/, function (s, t, m) {
       result.status = t;
       result.message = m;
     });
-  
-    res.data.replace (/<img src="\.\.\/common\/images\/(\w+)\.gif" alt="([^\"]+)" class="tonerremain" height="(\d+)px"/g, function (s, c, s2, p) {
+
+    data.replace (/<img src="\.\.\/common\/images\/(\w+)\.gif" alt="([^\"]+)" class="tonerremain" height="(\d+)px"/g, function (s, c, s2, p) {
       result.ink[c] = Math.round (p * 1.7857142857);
     });
-  
-    res.data.replace (/<li class="(contact|location)">[^<]+<span class="spacer">:<\/span>([^<]+)<\/li>/g, function (s, t, v) {
+
+    data.replace (/<li class="(contact|location)">[^<]+<span class="spacer">:<\/span>([^<]+)<\/li>/g, function (s, t, v) {
       result[t] = v;
     });
-  
+
     return result;
   }
-  
-  
+
+
   /**
    * Method: generalInformation
    *
    * @returns {Promise<object>}
    */
-  
+
   async generalInformation () {
     const data = await this._talk ({ path: '/etc/mnt_info.csv' });
-  
-    data = res.data.replace (/\""{0}/g, '');
+
+    data = data.replace (/\""{0}/g, '');
     data = data.split ('\n');
-  
+
     const one = data[0].split (',');
     const two = data[1].split (',');
     const result = {};
     let key;
     let val;
-  
+
     for (let i = 0; i < one.length; i++) {
       val = two[i].trim();
       key = one[i].trim().replace (/(.+)/, (s, t) => {
@@ -127,29 +125,29 @@ module.exports = class BrotherMFC {
           .replace ('.', '')
         ;
       });
-  
+
       if (key !== '' && val !== '') {
         result[key] = val.match (/^\d+$/) ? val * 1 : val;
       }
-  
-      return result;
     }
+
+    return result;
   }
-  
-  
+
+
   /**
    * Method: current
    *
    * @returns {Promise<object>}
    */
-  
+
   async current () {
     const printer = ipp.Printer (
       this._config.url.protocol + '//'
       + this._config.url.ippPort
       + '/ipp/printer'
     );
-  
+
     const msg = {
       'operation-attributes-tag': {
         'requested-attributes': [
@@ -162,35 +160,42 @@ module.exports = class BrotherMFC {
         ],
       },
     };
-  
+
     return new Promise ((resolve, reject) => {
       printer.execute ('Get-Printer-Attributes', msg, (err, data) => {
         if (err) {
           reject (err);
           return;
         }
-  
-        data = data['printer-attributes-tag'] || {};
-  
+
+        data = data['printer-attributes-tag'] || {
+          state: null,
+          stateReason: null,
+          jobs: 0,
+          uptime: 0,
+          uptimeDate: null,
+          ink: {},
+        };
+
         const result = {
-          state: data['printer-state'] || null,
-          stateReasons: data['printer-state-reasons'] || null,
-          jobs: data['queued-job-count'] || 0,
-          uptime: data['printer-up-time'] || 0,
+          state: data['printer-state'],
+          stateReasons: data['printer-state-reasons'],
+          jobs: data['queued-job-count'],
+          uptime: data['printer-up-time'],
           uptimeDate: new Date (Date.now() - (result.uptime * 1000)),
           ink: {},
         };
-  
+
         if (Array.isArray (data['marker-names']) && Array.isArray (data['marker-levels'])) {
           data['marker-names'].forEach ((name, i) => {
             name = name.toLowerCase().replace (/.*\u001e(\w+) .*/, '$1');
             result.ink[name] = data['marker-levels'][i];
           });
         }
-  
+
         resolve (result);
       });
     });
   }
-  
+
 };
