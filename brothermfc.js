@@ -143,7 +143,7 @@ module.exports = class BrotherMFC {
    * @returns {Promise<object>}
    */
   
-  function current () {
+  async current () {
     const printer = ipp.Printer (
       this._config.url.protocol + '//'
       + this._config.url.ippPort
