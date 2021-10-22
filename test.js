@@ -1,111 +1,88 @@
-var dotest = require ('dotest');
-var app = require ('./');
+const dotest = require ('dotest');
+const app = require ('./');
 
-var config = {
-  protocol: process.env.MFC_PROTOCOL || 'http',
-  hostname: process.env.MFC_HOSTNAME || null,
-  port: process.env.MFC_PORT || 80,
-  prefix: process.env.MFC_PREFIX || '',
-  ippPort: process.env.MFC_IPPPORT || 631,
-  timeout: process.env.MFC_TIMEOUT || 5000
+const config = {
+  url: process.env.MFC_URL,
+  ippPort: process.env.MFC_IPPPORT,
+  timeout: process.env.MFC_TIMEOUT,
 };
 
-var cacheSleep = null;
-
-var mfc = app (config);
+const mfc = new app (config);
 
 
-dotest.add ('Module', function (test) {
-  var general = mfc && mfc.general;
-
-  test ()
-    .isFunction ('fail', 'exports', app)
-    .isObject ('fail', 'interface', mfc)
-    .isFunction ('fail', '.current', mfc && mfc.current)
-    .isFunction ('fail', '.sleep', mfc && mfc.sleep)
-    .isObject ('fail', '.general', general)
-    .isFunction ('fail', '.general.status', general && general.status)
-    .isFunction ('fail', '.general.information', general && general.information)
-    .done ();
+dotest.add ('Module', test => {
+  test()
+    .isClass ('fail', 'exports', app)
+    .isFunction ('fail', '.current', mfc.current)
+    .isFunction ('fail', '.generalStatus', mfc.generalStatus)
+    .isFunction ('fail', '.generalInformation', mfc.generalInformation)
+    .done()
+  ;
 });
 
 
-dotest.add ('Method .sleep - get value', function (test) {
-  mfc.sleep (function (err, data) {
-    var value = data && data.value;
+dotest.add ('Method current', async test => {
+  try {
+    const data = await mfc.current();
 
-    if (value && value.key) {
-      cacheSleep = value.key;
+    test()
+      .isObject ('fail', 'data', data)
+      .isString ('fail', 'data.state', data.state)
+      .isString ('fail', 'data.stateReasons', data.stateReasons)
+      .isNumber ('fail', 'data.jobs', data.jobs)
+      .isNumber ('fail', 'data.uptime', data.uptime)
+      .isDate ('fail', 'data.uptimeDate', data.uptimeDate)
+      .isObject ('fail', 'data.ink', data.ink)
+      .info (data.ink)
+      .done()
+    ;
+  }
+  catch (err) {
+    test (err).done();
+  }
+});
+
+
+dotest.add ('Method generalStatus', async test => {
+  try {
+    const data = await mfc.generalStatus();
+
+    test()
+      .isObject ('fail', 'data', data)
+      .isString ('fail', 'data.model', data.model)
+      .isString ('fail', 'data.status', data.status)
+      .isString ('fail', 'data.message', data.message)
+      .isObject ('fail', 'data.ink', data.ink)
+      .isNotEmpty ('fail', 'data.ink', data.ink)
+    ;
+
+    for (let i in data.ink) {
+      test().isNumber ('fail', 'data.ink.' + i, data.ink [i]);
     }
 
-    test (err)
+    test().done();
+  }
+  catch (err) {
+    test (err).done();
+  }
+});
+
+
+dotest.add ('Method generalInformation', async test => {
+  try {
+    const data = await mfc.generalInformation();
+
+    test()
       .isObject ('fail', 'data', data)
-      .isObject ('fail', 'data.presets', data && data.presets)
-      .isObject ('fail', 'data.value', value)
-      .isNumber ('fail', 'data.value.key', value && value.key)
-      .isNumber ('fail', 'data.presets[1]', data && data.presets && data.presets[1])
-      .done ();
-  });
+      .isString ('fail', 'data.ip_address', data.ip_address)
+      .isNumber ('fail', 'data.page_counter', data.page_counter)
+      .done()
+    ;
+  }
+  catch (err) {
+    test (err).done();
+  }
 });
 
 
-dotest.add ('Method .sleep - set value', function (test) {
-  mfc.sleep (cacheSleep, function (err, data) {
-    test (err)
-      .isExactly ('fail', 'data', data, true)
-      .done ();
-  });
-});
-
-
-dotest.add ('Method .current', function (test) {
-  mfc.current (function (err, data) {
-    test (err)
-      .isObject ('fail', 'data', data)
-      .isString ('fail', 'data.state', data && data.state)
-      .isString ('fail', 'data.stateReasons', data && data.stateReasons)
-      .isNumber ('fail', 'data.jobs', data && data.jobs)
-      .isNumber ('fail', 'data.uptime', data && data.uptime)
-      .isDate ('fail', 'data.uptimeDate', data && data.uptimeDate)
-      .isObject ('fail', 'data.ink', data && data.ink)
-      .info (data && data.ink)
-      .done ();
-  });
-});
-
-
-dotest.add ('Method general.status', function (test) {
-  mfc.general.status (function (err, data) {
-    var i;
-
-    test (err)
-      .isObject ('fail', 'data', data)
-      .isString ('fail', 'data.model', data && data.model)
-      .isString ('fail', 'data.status', data && data.status)
-      .isString ('fail', 'data.message', data && data.message)
-      .isObject ('fail', 'data.ink', data && data.ink)
-      .isNotEmpty ('fail', 'data.ink', data && data.ink);
-
-    for (i in data && data.ink) {
-      test ()
-        .isNumber ('fail', 'data.ink.' + i, data.ink [i]);
-    }
-
-    test ()
-      .done ();
-  });
-});
-
-
-dotest.add ('Method general.information', function (test) {
-  mfc.general.information (function (err, data) {
-    test (err)
-      .isObject ('fail', 'data', data)
-      .isString ('fail', 'data.ip_address', data && data.ip_address)
-      .isNumber ('fail', 'data.page_counter', data && data.page_counter)
-      .done ();
-  });
-});
-
-
-dotest.run ();
+dotest.run();
