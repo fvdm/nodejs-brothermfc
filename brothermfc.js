@@ -142,12 +142,7 @@ module.exports = class BrotherMFC {
    */
 
   async current () {
-    const printer = ipp.Printer (
-      this._config.url.protocol + '//'
-      + this._config.url.ippPort
-      + '/ipp/printer'
-    );
-
+    const printer = ipp.Printer (`http://${this._config.ippPort}/ipp/printer`);
     const msg = {
       'operation-attributes-tag': {
         'requested-attributes': [
