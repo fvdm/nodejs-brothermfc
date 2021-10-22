@@ -1,8 +1,8 @@
 {
   "author": {
-    "name": "Franklin van de Meent",
-    "email": "fr@nkl.in",
-    "url": "https://frankl.in"
+    "name": "Franklin",
+    "email": "info@fvdm.com",
+    "url": "https://fvdm.com"
   },
   "name": "brothermfc",
   "description": "Access Brother MFC web UI details with node.js",
@@ -20,10 +20,10 @@
     "ipp": "^2.0.0"
   },
   "devDependencies": {
-    "dotest": "^2.3.0"
+    "dotest": "^2.10.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=12"
   },
   "scripts": {
     "test": "dotest"
